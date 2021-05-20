@@ -1578,11 +1578,12 @@ if [[ $NO_VIRT -eq 0 ]]; then
         WIFI_IFACE_FREQ=$(iw dev ${WIFI_IFACE} link | grep -i freq | awk '{print $2}')
         WIFI_IFACE_CHANNEL=$(ieee80211_frequency_to_channel ${WIFI_IFACE_FREQ})
         echo -n "${WIFI_IFACE} is already associated with channel ${WIFI_IFACE_CHANNEL} (${WIFI_IFACE_FREQ} MHz)"
-        if is_5ghz_frequency $WIFI_IFACE_FREQ; then
-            FREQ_BAND=5
-        else
-            FREQ_BAND=2.4
-        fi
+	# julian,zhu don't set to 5GHz for intel AX200
+        #if is_5ghz_frequency $WIFI_IFACE_FREQ; then
+        #    FREQ_BAND=5
+        #else
+        #    FREQ_BAND=2.4
+        #fi
         if [[ $WIFI_IFACE_CHANNEL -ne $CHANNEL ]]; then
             if ( get_adapter_info ${IFACE} | grep "#channels <= 2" -q )
             then
